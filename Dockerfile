@@ -14,7 +14,7 @@
 #
 ARG ELIXIR_VERSION=1.13.1
 ARG OTP_VERSION=24.2.1
-ARG DEBIAN_VERSION=bullseye-20220801-slim
+ARG DEBIAN_VERSION=bullseye-20210902-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
@@ -83,6 +83,10 @@ RUN chown nobody /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
+
+# Storage for the database
+RUN mkdir -p /data
+RUN chown nobody /data
 
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/distributed_sqlite ./
