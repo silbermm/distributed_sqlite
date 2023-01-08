@@ -88,12 +88,20 @@ ENV MIX_ENV="prod"
 RUN mkdir -p /data
 RUN chown nobody /data
 
+# Storage for the database
+RUN mkdir -p /data
+RUN chown nobody /data
+
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/distributed_sqlite ./
 
 USER nobody
 
 CMD ["/app/bin/server"]
+# Appended by flyctl
+ENV ECTO_IPV6 true
+ENV ERL_AFLAGS "-proto_dist inet6_tcp"
+
 # Appended by flyctl
 ENV ECTO_IPV6 true
 ENV ERL_AFLAGS "-proto_dist inet6_tcp"

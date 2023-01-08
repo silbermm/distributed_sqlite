@@ -1,7 +1,6 @@
-# fly.toml file generated for dawn-frog-9152 on 2022-09-12T20:13:30-04:00
+# fly.toml file generated for distrubuted-sql on 2023-01-08T16:20:10-05:00
 
-app = "dawn-frog-9152"
-
+app = "distrubuted-sql"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
@@ -10,8 +9,9 @@ processes = []
   release_command = "/app/bin/migrate"
 
 [env]
-  PHX_HOST = "autumn-water-2320.fly.dev"
+  PHX_HOST = "distrubuted-sql.fly.dev"
   PORT = "8080"
+  DATABASE_PATH = "/data/distributed_sql.db"
 
 [experimental]
   allowed_public_ports = []
@@ -23,7 +23,6 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
-
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
