@@ -9,6 +9,7 @@ processes = []
   PHX_HOST = "distrubuted-sql.fly.dev"
   PORT = "8080"
   DATABASE_PATH = "/data/distributed_sql.db"
+  RELEASE_COOKIE = "CGeVQfE28MFNO0nfHCSc_Vyo-zv7gh2sGBcKDKPfNeBHcKFsAzjvzg=="
 
 [experimental]
   allowed_public_ports = []

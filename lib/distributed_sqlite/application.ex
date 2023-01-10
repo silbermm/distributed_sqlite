@@ -7,7 +7,10 @@ defmodule DistributedSqlite.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies) || []
+
     children = [
+      {Cluster.Supervisor, [topologies, [name: DistributedSqlite.ClusterSupervisor]]},
       # Start the Ecto repository
       DistributedSqlite.Repo,
       # Start the Telemetry supervisor
@@ -15,9 +18,10 @@ defmodule DistributedSqlite.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DistributedSqlite.PubSub},
       # Start the Endpoint (http/https)
-      DistributedSqliteWeb.Endpoint
+      DistributedSqliteWeb.Endpoint,
       # Start a worker by calling: DistributedSqlite.Worker.start_link(arg)
       # {DistributedSqlite.Worker, arg}
+      {DistributedSqlite.RepoReplication, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
