@@ -1,4 +1,3 @@
-# lib/distributed_sqlite/counter.ex
 defmodule DistributedSqlite.Counter do
   alias DistributedSqlite.Counter.PageCount
   alias DistributedSqlite.Repo
@@ -17,7 +16,14 @@ defmodule DistributedSqlite.Counter do
         page_count
         |> PageCount.changeset(%{count: page_count.count + 1})
         |> Repo.update()
-        |> Repo.replicate(:update)
+        |> case do
+          {:ok, cnt} ->
+            cnt
+            |> PageCount.replicate_changeset()
+            |> Repo.replicate(:update)
+
+            {:ok, cnt}
+        end
     end
   end
 end

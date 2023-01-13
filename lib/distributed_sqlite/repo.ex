@@ -9,10 +9,8 @@ defmodule DistributedSqlite.Repo do
   def replicate({:ok, data_to_replicate} = ret, operation) when operation in [:insert, :update] do
     _ =
       for node <- Node.list() do
-        IO.inspect(node)
-
         GenServer.cast(
-          {GenexRemote.RepoReplication, node},
+          {DistributedSqlite.RepoReplication, node},
           {:replicate, data_to_replicate, operation}
         )
       end
@@ -25,9 +23,8 @@ defmodule DistributedSqlite.Repo do
   def replicate(%Ecto.Changeset{} = changeset, operation) when operation in [:insert, :update] do
     _ =
       for node <- Node.list() do
-        IO.inspect(node)
         GenServer.cast(
-          {GenexRemote.RepoReplication, node},
+          {DistributedSqlite.RepoReplication, node},
           {:replicate, changeset, operation}
         )
       end
@@ -38,9 +35,8 @@ defmodule DistributedSqlite.Repo do
   def replicate(schema, :insert) do
     _ =
       for node <- Node.list() do
-        IO.inspect(node)
         GenServer.cast(
-          {GenexRemote.RepoReplication, node},
+          {DistributedSqlite.RepoReplication, node},
           {:replicate, schema, :insert}
         )
       end

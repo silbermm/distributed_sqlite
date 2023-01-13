@@ -1,14 +1,14 @@
-# fly.toml file generated for distrubuted-sql on 2023-01-08T16:20:10-05:00
+# fly.toml file generated for distributed-sqlite on 2023-01-11T21:17:56-05:00
 
-app = "distrubuted-sql"
+app = "distributed-sqlite"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
 
 [env]
-  PHX_HOST = "distrubuted-sql.fly.dev"
-  PORT = "8080"
   DATABASE_PATH = "/data/distributed_sql.db"
+  PHX_HOST = "distributed-sqlite.fly.dev"
+  PORT = "8080"
   RELEASE_COOKIE = "CGeVQfE28MFNO0nfHCSc_Vyo-zv7gh2sGBcKDKPfNeBHcKFsAzjvzg=="
 
 [experimental]

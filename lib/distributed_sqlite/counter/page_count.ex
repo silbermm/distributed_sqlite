@@ -15,4 +15,14 @@ defmodule DistributedSqlite.Counter.PageCount do
     |> cast(attrs, [:page, :count])
     |> validate_required([:page, :count])
   end
+
+  @doc """
+  Build a changeset fit for replicating
+  """
+  def replicate_changeset(page_count) do
+    changeset(%__MODULE__{id: page_count.id}, %{
+      count: page_count.count,
+      page: page_count.page
+    })
+  end
 end

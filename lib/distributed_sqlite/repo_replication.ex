@@ -23,7 +23,7 @@ defmodule DistributedSqlite.RepoReplication do
   end
 
   def handle_cast({:replicate, changeset, :update}, state) do
-    Repo.update!(changeset)
+    Repo.update(changeset)
     {:noreply, state}
   end
 end

@@ -4,8 +4,4 @@ secret-access-key: ${LITESTREAM_SECRET_ACCESS_KEY}
 dbs:
   - path: /data/distributed_sql.db
     replicas:
-      - type: s3
-        bucket: distributedsql
-        path:     db
-        endpoint: nyc3.digitaloceanspaces.com
-        region:   nyc3
+      - url: s3://distributedsql.nyc3.digitaloceanspaces.com/db
